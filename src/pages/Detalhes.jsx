@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import api from '../services/api.js';
+import '../index.css'
 
 const Detalhes = () => {
   const { id } = useParams();

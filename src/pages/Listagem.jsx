@@ -2,6 +2,7 @@ import { useState } from 'react';
 import api from '../services/api.js';
 import useVencimentos from '../hooks/useVencimentos.js';
 import { Link } from 'react-router-dom';
+import '../index.css'
 
 export default function Listagem() {
 
