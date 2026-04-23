@@ -1,24 +1,34 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import api from '../services/api.js';
 import useVencimentos from '../hooks/useVencimentos.js';
-import { Link } from 'react-router-dom';
-import '../index.css'
+import '../index.css';
 
 export default function Listagem() {
-
   const { vencimentos, loading, carregar } = useVencimentos();
-  
   const [processando, setProcessando] = useState(false);
+  const [arquivo, setArquivo] = useState(null);
 
   const processar = async () => {
+    if (!arquivo) {
+      alert('Selecione uma planilha antes de importar');
+      return;
+    }
+
     setProcessando(true);
+
     try {
-      const res = await api.post('/vencimentos/importar');
-      alert(`${res.data.resultado.inseridos} inseridos`);
+      const formData = new FormData();
+      formData.append('planilha', arquivo);
+
+      const res = await api.post('/vencimentos/importar', formData);
+      alert(`${res.data.resultado.inseridos} vencimentos importados`);
+      setArquivo(null);
       carregar();
     } catch (err) {
-      alert('Erro ao processar');
+      alert(err.response?.data?.error || 'Erro ao processar');
     }
+
     setProcessando(false);
   };
 
@@ -34,8 +44,17 @@ export default function Listagem() {
   return (
     <div>
       <h2>Vencimentos</h2>
+
+      <p>Selecione a planilha e importe para substituir os vencimentos anteriores.</p>
+
+      <input
+        type="file"
+        accept=".xlsx,.xls"
+        onChange={(event) => setArquivo(event.target.files[0])}
+      />
+
       <button onClick={processar} disabled={processando || loading}>
-        {processando ? 'Processando...' : 'Processar'}
+        {processando ? 'Importando...' : 'Importar planilha'}
       </button>
 
       {loading ? (
@@ -50,7 +69,7 @@ export default function Listagem() {
               <th>Modelo</th>
               <th>Vencimento</th>
               <th>Telefone</th>
-              <th>Ação</th>
+              <th>Acao</th>
             </tr>
           </thead>
           <tbody>
