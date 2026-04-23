@@ -62,7 +62,7 @@ CertiRecupera é uma SPA modular construída com React + Vite que consome uma AP
 ## Instalação e execução
 
 1. Clonar o repositório:
-   git clone https://github.com/gabrielferreirarangel/CertRecupera.git
+   git clone https://github.com/gabrielferreirarangel/CertiRecupera.git
 
 2. Entrar na pasta do projeto:
    cd CertiRecupera
@@ -188,7 +188,7 @@ Formato esperado (exemplo):
 ---
 
 ## Contato
-Gabriel Ferreira Rangel — repositório: `gabrielferreirarangel/CertRecupera`
+Gabriel Ferreira Rangel — repositório: `gabrielferreirarangel/CertiRecupera`
 
 ---
 
